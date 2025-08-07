@@ -1,30 +1,13 @@
 import './PokemonDetails.css';
+import {Link} from 'react-router-dom';
+import usePokemon from "../../hooks/usePokemon"
+import Pokemon from '../Pokemon/Pokemon';
 
-import { useEffect ,useState} from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Link } from 'react-router-dom'; 
-
-function PokemonDetails(){
+function PokemonDetails({pokemonName}){
   
-  const {id} = useParams();  
-  const POKEMON_DETAIL_URL = `https://pokeapi.co/api/v2/pokemon/${id}`
-  const [pokemon,setPokemon] = useState(null);
-  async function downLoadPokemon(){
-    const response = await  axios.get(POKEMON_DETAIL_URL );
-    const pokemon = response.data;
-    setPokemon({
-      name:pokemon.name,
-      height:pokemon.height,
-      weight:pokemon.weight,
-      types:pokemon.types,
-      image:pokemon.sprites.other.dream_world.front_default,     
-    })
-  }
-
-  useEffect(() => {
-     downLoadPokemon();
-  },[])
+  
+  const [pokemon,pokemonListState] = usePokemon(pokemonName);
+  
   return(
     <>
     <h1 className='pokedx-redirect'>
@@ -51,6 +34,21 @@ function PokemonDetails(){
           <h1>Type:</h1>{pokemon.types.map((t) => (<span className='type' key={t.type.name}>{t.type.name}</span>))};
         </div>
       </div>}
+      <div className='similar-pokemons'>
+        <h2>Similar Pokemons</h2> 
+        <div className='pokemon-similar-boxex'>
+        {pokemonListState.pokemonList.length > 0 &&
+          pokemonListState.pokemonList.map((pokemon) => (
+            <Pokemon
+              key={pokemon.id}
+              name={pokemon.name}
+              image={pokemon.image}
+              id={pokemon.id}
+            />
+          ))
+        }
+      </div>
+      </div>      
     </>
   )
 }

@@ -32,3 +32,16 @@
   background-color: azure;
   margin-left: 1rem;
 }
+.similar-pokemons{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+.pokemon-similar-boxex{
+  margin: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  
+}

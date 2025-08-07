@@ -13,6 +13,7 @@
   cursor: pointer;
   border-radius: 10px;
   border:1px solid rgba(175, 168, 168, 0.527);
+  width:fit-content;
 }
 .pokemon-card:hover{
   background-color: rgb(243, 210, 169);
